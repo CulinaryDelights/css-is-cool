@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Button Maker</title>
+    </head>
+
+    <body>
+        <h1 style="position: absolute; left: 50%; transform: translate(-50%);">Button Maker</h1>
+
+        <div class="slidecontainer">
+            <h2>Width</h2>
+            <input type="range" min="1" max="100" value="50" class="slider" id="widthSlider">
+            <p id="widthText"></p>
+        </div>
+
+        <div class="slidecontainer">
+            <h2>Height</h2>
+            <input type="range" min="1" max="100" value="50" class="slider" id="heightSlider">
+            <p id="heightText"></p>
+        </div>
+
+        <h2>Text</h2>
+        <input type="text" id="buttonText">
+
+        <h2>Color</h2>
+        <input type="color" id="buttonColor">
+
+        <h2>Link</h2>
+        <input type="text" id="buttonLink">
+
+        <h2>Text Color</h2>
+        <input type="color" id="buttonTextColor">
+
+        <div style="position: absolute; right: 10px; top: 75px;">
+            <h2>Border Color</h2>
+            <input type="color" id="buttonBorderColor">
+            
+            <h2>Border Type</h2>
+            <select id="buttonBorderType">
+                <option value="solid">Solid</option>
+                <option value="dashed">Dashed</option>
+                <option value="dotted">Dotted</option>
+                <option value="double">Double</option>
+            </select>
+
+            <div class="slidecontainer">
+                <h2>Border Width</h2>
+                <input type="range" min="1" max="10" value="3" class="slider" id="buttonBorderWidth">
+                <p id="borderText"></p>
+            </div>
+
+            <div class="slidecontainer">
+                <h2>Border Radius</h2>
+                <input type="range" min="0" max="50" value="2" class="slider" id="buttonBorderRadius">
+                <p id="borderRadiusText"></p>
+            </div>
+        </div>
+
+        <a id="button" target="_blank" style="text-decoration: none;"></a>
+          
+        <script src="script.js"></script>
+    </body>
+</html>
