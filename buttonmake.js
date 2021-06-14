@@ -18,6 +18,9 @@ var borderText = document.getElementById("borderText");
 var borderRadiusText = document.getElementById("borderRadiusText");
 
 var button = document.getElementById("button");
+var buttonArray = [];
+
+var saveInput = document.getElementById("slotInput")
 
 widthOutput.innerHTML = widthSlider.value + "px";
 heightOutput.innerHTML = heightSlider.value + "px";
@@ -85,4 +88,77 @@ borderWidth.oninput = function() {
 borderRadius.oninput = function() {
     button.style.borderRadius = borderRadius.value + "%";
     borderRadiusText.innerHTML = borderRadius.value + "%";
+}
+
+localStorage.setItem("buttonNumber",0);
+
+function SaveButton() {
+    var buttonsArray = [];
+    buttonArray = [widthSlider.value,heightSlider.value,text.value,color.value,link.value,textColor.value,borderType.value,borderColor.value,borderWidth.value,borderRadius.value];
+
+    buttonsArray = JSON.parse(localStorage.getItem("buttons")) || [];
+    buttonsArray.push(buttonArray);
+    localStorage.setItem("buttons",JSON.stringify(buttonsArray));
+    alert("Saved Button(Check the button loader)");
+}
+console.log(JSON.parse(localStorage.getItem("buttons")));
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function Randomize() {
+    var randomWidth = Math.floor(Math.random() * 51);
+    var randomHeight = Math.floor(Math.random() * 51);
+
+    var randomBorderWidth = Math.floor(Math.random() * 11);
+    var randomBorderRadius = Math.floor(Math.random() * 51);
+    var randomBorderStyle = Math.floor(Math.random() * 4);
+
+    var randomColor = getRandomColor();
+    var randomBorderColor = getRandomColor();
+    var randomTextColor = getRandomColor();
+
+    var wordList = ["Banana","Papaya","Puppy","Kitty","Button","CHEESE","Bird","Rubik's Cube","404 Error(Fake)","Dragon","Otamatone","Ugly Colors","Happy Birthday!"];
+    var randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+
+    button.style.paddingLeft = randomWidth + "px";
+    button.style.paddingRight = randomWidth + "px";
+
+    widthSlider.value = randomWidth;
+    widthOutput.innerHTML = randomWidth + "px";
+
+    button.style.paddingTop = randomHeight + "px";
+    button.style.paddingBottom = randomHeight + "px";
+
+    heightSlider.value = randomHeight;
+    heightOutput.innerHTML = randomHeight + "px";
+
+    button.style.backgroundColor = randomColor;
+    color.setAttribute('value',randomColor);
+
+    button.style.color = randomTextColor;
+    buttonTextColor.setAttribute('value',randomTextColor);
+
+    button.style.borderColor = randomBorderColor;
+    borderColor.setAttribute('value',randomBorderColor);
+
+    button.style.borderWidth = randomBorderWidth + "px";
+    borderWidth.value = randomBorderWidth;
+    borderText.innerHTML = randomBorderWidth + "px";
+
+    borderType.selectedIndex = randomBorderStyle;
+    button.style.borderStyle = borderType.value;
+
+    button.style.borderRadius = randomBorderRadius + "%";
+    borderRadius.value = randomBorderRadius;
+    borderRadiusText.innerHTML = randomBorderRadius + "%";
+
+    button.innerHTML = randomWord; 
+    text.setAttribute('value',randomWord);
 }
