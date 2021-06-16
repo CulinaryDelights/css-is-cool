@@ -20,7 +20,7 @@ var borderRadiusText = document.getElementById("borderRadiusText");
 var button = document.getElementById("button");
 var buttonArray = [];
 
-var saveInput = document.getElementById("slotInput")
+var saveInput = document.getElementById("slotInput");
 
 widthOutput.innerHTML = widthSlider.value + "px";
 heightOutput.innerHTML = heightSlider.value + "px";
@@ -97,11 +97,15 @@ function SaveButton() {
     buttonArray = [widthSlider.value,heightSlider.value,text.value,color.value,link.value,textColor.value,borderType.value,borderColor.value,borderWidth.value,borderRadius.value];
 
     buttonsArray = JSON.parse(localStorage.getItem("buttons")) || [];
-    buttonsArray.push(buttonArray);
-    localStorage.setItem("buttons",JSON.stringify(buttonsArray));
-    alert("Saved Button(Check the button loader)");
+    if(buttonsArray.length < 12) {
+        buttonsArray.push(buttonArray);
+        localStorage.setItem("buttons",JSON.stringify(buttonsArray));
+        alert("Saved Button(Check the button loader)");
+    }
+    else {
+        alert("No more space! Delete a few buttons.");
+    }
 }
-console.log(JSON.parse(localStorage.getItem("buttons")));
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -161,4 +165,31 @@ function Randomize() {
 
     button.innerHTML = randomWord; 
     text.setAttribute('value',randomWord);
+}
+
+if(localStorage.getItem("theme") == 'light') {
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+}
+else if(localStorage.getItem("theme") == 'dark') {
+    document.body.style.backgroundColor = "#222";
+    document.body.style.color = "white";
+}
+
+function MakeButtonCSS() {
+    document.getElementById("buttonCodeText").value = ".button {\n\tpadding: " + button.style.paddingTop + ' ' + button.style.paddingLeft + ";\n\tbackground: " + button.style.color + ";\n\tcolor: "+ button.style.color +";\n\tborder: " + button.style.borderColor + ' ' + button.style.borderStyle + ' ' + borderWidth.value + "px" + ";\n\tborder-radius: "+ button.style.borderRadius +";\n}";
+
+    document.getElementById("buttonCodeText").select();
+    document.getElementById("buttonCodeText").setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+}
+
+function MakeButtonHTML() {
+    document.getElementById("buttonCodeText").value = "<a href=\"" + link.value + "\">" + text.value + "</a>;";
+    
+    document.getElementById("buttonCodeText").select();
+    document.getElementById("buttonCodeText").setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
 }

@@ -69,3 +69,17 @@
 .savedButton {
   margin: auto;
 }
+
+.darkThemeCheckbox {
+  appearance: none;
+  border-radius: 50%;
+  background: lightblue;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  transition-duration: 0.6s;
+}
+
+.darkThemeCheckbox:checked {
+  background: rgb(5, 0, 144);
+}

@@ -26,6 +26,13 @@
             <a class="savedButton" target="_blank"></a>
         </div>
 
+        <div id="deleteMenu" style="background-color: grey; opacity: 0.8; width: 400px; height: 400px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: none; z-index: 100;">
+            <p style="position: absolute; left: 200px; top: 100px; transform: translate(-50%,-50%); font-size: 24px; white-space: pre;">Pick the button number to delete</p>
+            <input type="text" style="position: absolute; left: 200px; top: 220px; transform: translate(-50%,-50%);" id="deleteInput">
+            <button onclick="DeleteButton();" style="position: absolute; left: 200px; top: 300px; transform: translate(-50%,-50%)">Delete</button>
+        </div>
+
+        <button onclick="OpenDeleteMenu();" style="position: absolute; right: 15%;">Delete One</button>
         <button onclick="ClearAll();" style="position: absolute; right: 5%;">Clear All</button>
 
         <div id="noButtons" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);">

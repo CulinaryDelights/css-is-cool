@@ -1,6 +1,12 @@
 var buttonArray = JSON.parse(localStorage.getItem("buttons"));
 var clearedArray = [];
 var noButtonDiv = document.getElementById("noButtons");
+var deleteSelect = document.getElementById("deleteMenu");
+var deleteInput = document.getElementById("deleteInput");
+
+if(buttonArray == null) {
+    buttonArray = clearedArray;
+}
 
 if(buttonArray.length != 0) {
     noButtonDiv.style.display = "none";
@@ -8,8 +14,6 @@ if(buttonArray.length != 0) {
 else {
     noButtonDiv.style.display = "block";
 }
-
-console.log(buttonArray);
 
 for(var i = 0; i < buttonArray.length; i++) {
     var button = document.getElementsByClassName("savedButton")[i];
@@ -49,4 +53,31 @@ for(var i = 0; i < buttonArray.length; i++) {
 function ClearAll() {
     localStorage.setItem("buttons",JSON.stringify(clearedArray));
     window.location.reload();
+}
+
+function OpenDeleteMenu() {
+    deleteSelect.style.display = "block";
+    for(var i = 0; i < buttonArray.length; i++) {
+        var button = document.getElementsByClassName("savedButton")[i];
+        
+        button.innerHTML = i + 1;
+    }
+}
+
+function DeleteButton() {
+    if(!isNaN(deleteInput.value) && deleteInput.value != '') {
+        buttonArray.splice(deleteInput.value - 1,1);
+        localStorage.setItem("buttons",JSON.stringify(buttonArray));
+    }   
+    window.location.reload();
+    deleteSelect.style.display = "none";
+}
+
+if(localStorage.getItem("theme") == 'light') {
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+}
+else if(localStorage.getItem("theme") == 'dark') {
+    document.body.style.backgroundColor = "#222";
+    document.body.style.color = "white"; 
 }
