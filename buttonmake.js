@@ -16,11 +16,38 @@ var borderRadius = document.getElementById("buttonBorderRadius");
 
 var borderText = document.getElementById("borderText");
 var borderRadiusText = document.getElementById("borderRadiusText");
-
 var button = document.getElementById("button");
+
+if(localStorage.getItem("editedButton") != '' || localStorage.getItem("editedButton") != null) {
+    var savedButton = JSON.parse(localStorage.getItem("buttons"))[localStorage.getItem("editedButton")];
+}
+else {
+    var savedButton = null;
+}
+
 var buttonArray = [];
 
 var saveInput = document.getElementById("slotInput");
+var clipboardAnimation = document.getElementById("clipboardAnimation");
+
+if(savedButton != null) {
+    widthSlider.value = savedButton[0];
+    heightSlider.value = savedButton[1];
+    text.value = savedButton[2];
+    color.value = savedButton[3];
+    link.value = savedButton[4];
+    textColor.value = savedButton[5];
+    borderType.value = savedButton[6];
+    borderColor.value = savedButton[7];
+    borderWidth.value = savedButton[8];
+    borderRadius.value = savedButton[9];
+}
+
+if(savedButton != null) {
+    window.onbeforeunload = function() {
+        localStorage.setItem("editedButton","");
+    };
+}
 
 widthOutput.innerHTML = widthSlider.value + "px";
 heightOutput.innerHTML = heightSlider.value + "px";
@@ -28,6 +55,7 @@ borderText.innerHTML = borderWidth.value + "px";
 borderRadiusText.innerHTML = borderRadius.value + "%";
 
 button.style.backgroundColor = color.value;
+console.log(JSON.parse(localStorage.getItem("buttons"))[localStorage.getItem("editedButton")]);
 
 button.style.paddingLeft = widthSlider.value + "px";
 button.style.paddingRight = widthSlider.value + "px";
@@ -90,20 +118,26 @@ borderRadius.oninput = function() {
     borderRadiusText.innerHTML = borderRadius.value + "%";
 }
 
-localStorage.setItem("buttonNumber",0);
-
 function SaveButton() {
-    var buttonsArray = [];
-    buttonArray = [widthSlider.value,heightSlider.value,text.value,color.value,link.value,textColor.value,borderType.value,borderColor.value,borderWidth.value,borderRadius.value];
+    var buttonsArray = JSON.parse(localStorage.getItem("buttons"));
+    var buttonArray = [widthSlider.value,heightSlider.value,text.value,color.value,link.value,textColor.value,borderType.value,borderColor.value,borderWidth.value,borderRadius.value];
 
-    buttonsArray = JSON.parse(localStorage.getItem("buttons")) || [];
-    if(buttonsArray.length < 12) {
-        buttonsArray.push(buttonArray);
+    if(savedButton != null) {
+        buttonsArray.splice(localStorage.getItem("editedButton"),1);
+        buttonsArray.splice(localStorage.getItem("editedButton"),0,buttonArray);
         localStorage.setItem("buttons",JSON.stringify(buttonsArray));
-        alert("Saved Button(Check the button loader)");
+        console.log(buttonsArray);
+        alert("Successfully Edited!")
     }
     else {
-        alert("No more space! Delete a few buttons.");
+        if(buttonsArray.length < 12) {
+            buttonsArray.push(buttonArray);
+            localStorage.setItem("buttons",JSON.stringify(buttonsArray));
+            alert("Saved Button(Check the button loader)");
+        }
+        else {
+            alert("No more space! Delete a few buttons.");
+        }
     }
 }
 
@@ -144,13 +178,13 @@ function Randomize() {
     heightOutput.innerHTML = randomHeight + "px";
 
     button.style.backgroundColor = randomColor;
-    color.setAttribute('value',randomColor);
+    color.value = randomColor;
 
     button.style.color = randomTextColor;
-    buttonTextColor.setAttribute('value',randomTextColor);
+    buttonTextColor.value = randomTextColor;
 
     button.style.borderColor = randomBorderColor;
-    borderColor.setAttribute('value',randomBorderColor);
+    borderColor.value = randomBorderColor;
 
     button.style.borderWidth = randomBorderWidth + "px";
     borderWidth.value = randomBorderWidth;
@@ -164,7 +198,7 @@ function Randomize() {
     borderRadiusText.innerHTML = randomBorderRadius + "%";
 
     button.innerHTML = randomWord; 
-    text.setAttribute('value',randomWord);
+    text.value = randomWord;
 }
 
 if(localStorage.getItem("theme") == 'light') {
@@ -183,6 +217,14 @@ function MakeButtonCSS() {
     document.getElementById("buttonCodeText").setSelectionRange(0, 99999);
 
     document.execCommand("copy");
+
+    clipboardAnimation.style.display = "block";
+    clipboardAnimation.classList.add("clipboardHtml");
+    
+    window.setTimeout(function() {
+        clipboardAnimation.classList.remove("clipboardHtml")
+        clipboardAnimation.style.display = "none";
+    },4000)
 }
 
 function MakeButtonHTML() {
@@ -192,4 +234,12 @@ function MakeButtonHTML() {
     document.getElementById("buttonCodeText").setSelectionRange(0, 99999);
 
     document.execCommand("copy");
+
+    clipboardAnimation.classList.add("clipboardHtml");
+    clipboardAnimation.style.display = "block";
+
+    window.setTimeout(function() {
+        clipboardAnimation.style.display = "none";
+        document.getElementById("clipboardAnimation").classList.remove("clipboardHtml")
+    },4000)
 }

@@ -1,8 +1,12 @@
 var buttonArray = JSON.parse(localStorage.getItem("buttons"));
 var clearedArray = [];
 var noButtonDiv = document.getElementById("noButtons");
+
 var deleteSelect = document.getElementById("deleteMenu");
 var deleteInput = document.getElementById("deleteInput");
+var deleteText = document.getElementById("deleteText");
+var deleteButton = document.getElementById("deleteButton");
+var chooseInput = "";
 
 if(buttonArray == null) {
     buttonArray = clearedArray;
@@ -46,20 +50,19 @@ for(var i = 0; i < buttonArray.length; i++) {
     button.style.borderColor = borderColor;
     button.style.borderWidth = borderWidth;
     button.style.borderRadius = borderRadius;
-
-    button.style.textDecoration = "none";
-}
-
-function ClearAll() {
+    button.style.textDecoration = "none";}function ClearAll() {
     localStorage.setItem("buttons",JSON.stringify(clearedArray));
     window.location.reload();
 }
 
 function OpenDeleteMenu() {
     deleteSelect.style.display = "block";
+    deleteText.innerHTML = "Choose which one you want to " + chooseInput + ":";
+    deleteButton.innerHTML = chooseInput.charAt(0).toUpperCase() + chooseInput.slice(1);
+    deleteButton.setAttribute('onclick',chooseInput.charAt(0).toUpperCase() + chooseInput.slice(1) + "Button();");
+
     for(var i = 0; i < buttonArray.length; i++) {
         var button = document.getElementsByClassName("savedButton")[i];
-        
         button.innerHTML = i + 1;
     }
 }
@@ -70,8 +73,19 @@ function DeleteButton() {
         localStorage.setItem("buttons",JSON.stringify(buttonArray));
     }   
     window.location.reload();
-    deleteSelect.style.display = "none";
 }
+
+function EditButton() {
+    if(!isNaN(deleteInput.value) && deleteInput.value != '') {
+        localStorage.setItem("editedButton",deleteInput.value - 1);
+        window.location.href = "buttonmake.html";
+    }
+    else {
+        window.location.reload();
+    }
+}
+
+console.log(buttonArray);
 
 if(localStorage.getItem("theme") == 'light') {
     document.body.style.backgroundColor = "white";

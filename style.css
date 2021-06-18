@@ -83,3 +83,24 @@
 .darkThemeCheckbox:checked {
   background: rgb(5, 0, 144);
 }
+
+.clipboardHtml {
+  padding: 25px 150px;
+  position: fixed;
+  bottom: -14%;
+  left: 50%;
+  background-color: green;
+  font-size: 36px;
+  font-weight: bold;
+  transform: translate(-50%);
+  white-space: pre;
+  animation-name: clipboard;
+  animation-duration: 4s;
+  display: block;
+}
+
+@keyframes clipboard {
+  30% {bottom: 0%;}
+  50% {opacity: 1;}
+  100% {opacity: 0; bottom: 0%;}
+}

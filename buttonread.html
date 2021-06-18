@@ -27,13 +27,14 @@
         </div>
 
         <div id="deleteMenu" style="background-color: grey; opacity: 0.8; width: 400px; height: 400px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: none; z-index: 100;">
-            <p style="position: absolute; left: 200px; top: 100px; transform: translate(-50%,-50%); font-size: 24px; white-space: pre;">Pick the button number to delete</p>
+            <p style="position: absolute; left: 200px; top: 100px; transform: translate(-50%,-50%); font-size: 24px; white-space: pre;" id="deleteText"></p>
             <input type="text" style="position: absolute; left: 200px; top: 220px; transform: translate(-50%,-50%);" id="deleteInput">
-            <button onclick="DeleteButton();" style="position: absolute; left: 200px; top: 300px; transform: translate(-50%,-50%)">Delete</button>
+            <button onclick="" style="position: absolute; left: 200px; top: 300px; transform: translate(-50%,-50%)" id="deleteButton"></button>
         </div>
 
-        <button onclick="OpenDeleteMenu();" style="position: absolute; right: 15%;">Delete One</button>
-        <button onclick="ClearAll();" style="position: absolute; right: 5%;">Clear All</button>
+        <button onclick="chooseInput = 'delete'; OpenDeleteMenu();" style="position: absolute; right: 15%;">Delete One</button>
+        <button onclick="ClearAll();" style="position: absolute; right: 10%;">Clear All</button>
+        <button onclick="chooseInput = 'edit'; OpenDeleteMenu();" style="position: absolute; right: 5%;">Edit One</button>
 
         <div id="noButtons" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);">
             <h1 style="position: relative; left: 130px; top: -20px; white-space: pre;">No Buttons?</h1>
